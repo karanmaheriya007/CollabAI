@@ -11,7 +11,10 @@ connect();
 
 const app = express();
 //cors, which allows frontend apps (React, Vue, Angular, etc.) to communicate with your backend API.
-app.use(cors());
+app.use(cors({
+    origin: process.env.FRONTEND_URL?.split(','), // Allow only the specified frontend URLs
+    credentials: true // Allow cookies and authorization headers
+}));
 // Morgan, which is a middleware for logging HTTP requests in Node.js applications, commonly used with Express.js.
 app.use(morgan('dev'));
 app.use(express.json());
