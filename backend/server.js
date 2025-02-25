@@ -15,8 +15,8 @@ const allowedOrigins = process.env.FRONTEND_URL?.split(',');
 
 const io = new Server(server, {
     cors: {
-        origin: allowedOrigins,  // Ensure correct CORS handling
-        credentials: true,       // Allow authentication cookies & headers
+        origin: allowedOrigins || "*",
+        credentials: true
     }
 });
 
