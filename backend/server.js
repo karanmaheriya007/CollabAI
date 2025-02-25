@@ -8,12 +8,13 @@ import mongoose from 'mongoose';
 import projectModel from './models/project.model.js';
 import { generateResult } from './services/ai.service.js';
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: process.env.FRONTEND_URL.split(','), // Allow multiple origins
+        credentials: true, // Allow authentication cookies & headers
     }
 });
 
