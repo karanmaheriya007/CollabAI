@@ -1,0 +1,6 @@
+1. Radhe Radhe
+2. @ai in which are you expert ?
+3. @ai create a beautiful login page using tailwind add gradient and also animation
+4. @ai create a dropdown.jsx
+5. @ai create function to generate a table using js
+6. @ai create an express server with routes,middleware,controller,app.js,server.js,package.json,package-lock.json,.env and also login and signup page

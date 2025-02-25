@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.message-box {
+  scroll-behavior: smooth;
+}
+
+/* Hide Default Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+/* Add this to your CSS file */
+.terminal {
+  resize: vertical; /* Allow vertical resizing */
+  overflow: auto; /* Ensure scrollbars appear when content overflows */
+  min-height: 100px; /* Minimum height for the terminal */
+}
