@@ -11,9 +11,11 @@ import { generateResult } from './services/ai.service.js';
 const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
+const allowedOrigins = process.env.FRONTEND_URL?.split(',');
+
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_URL.split(','), // Allow multiple origins
+        origin: allowedOrigins || "*",  // Use allowed origins
         credentials: true, // Allow authentication cookies & headers
     }
 });
