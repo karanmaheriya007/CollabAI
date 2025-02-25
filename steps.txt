@@ -1,0 +1,175 @@
+// Backend
+
+1. cd DevinAI/backend
+2. npm init -y
+3. npm i express mongoose jsonwebtoken bcrypt cookie-parser dotenv cors
+4. in package.json we need to add :
+
+{
+  "type": "module"
+}
+
+for use ES6 module syntax (import express from 'express';)
+4. create app.js
+5. create .env file
+6. create server.js -> entry point
+7. run -> nodemon server.js
+8. npm i morgan
+9. create database/connectDB.js
+10. create models/user.model.js
+11. create services/user.service.js (This structure makes the code more organized, reusable, maintainable, and testable.)
+12. create controllers/user.controller.js
+13. npm i express-validator
+14. routes/user.route.js
+15. middlewares/auth.middleware.js
+16. go to https://redis.io/
+17. npm i ioredis
+18. create redis.service.js
+
+// Frontend
+
+1. npm create vite@latest
+2. cd frontend
+3. npm i
+4. go to https://v3.tailwindcss.com/docs/guides/vite
+5. npm install -D tailwindcss@3 postcss autoprefixer
+6. npx tailwindcss init -p
+7. replace code of tailwind.config.js with following code :
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+8. replace code of src/index.css with the following code :
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+9. you can delete App.css
+10. remove all code of src/App.jsx and type rafce
+11. you can add the following code into eslint.config.js for unused variables and props :
+
+{
+  "rules": {
+    "no-unused-vars": "off",
+    "react/prop-types": "off"
+  }
+}
+
+12. npm run dev
+13. npm i react-router-dom
+14. create src/routes/AppRoutes.jsx
+15. create src/screens/Login.jsx , Register.jsx , Home.jsx
+16. npm i axios
+17. create src/config/axios.js
+18. create .env and set variable VITE_API_URL
+19. implement form logic in Login.jsx & Register.jsx
+20. cd backend
+21. npm i cors
+22. use cors in backend/app.js
+23. cd frontend
+24. create src/context/user.context.jsx (for centralize the data using Context API)
+
+// Backend
+
+1. cd backend
+2. create models/project.model.js
+3. create services/project.service.js
+3. create controllers/project.controller.js
+3. create routes/project.route.js
+
+// Frontend
+
+1. cd frontend
+2. npm install remixicon --save
+3. import 'remixicon/fonts/remixicon.css' into main.jsx (you can use any icon of remixicon)
+4. set headers in config/axios.js
+5. implement project logic in Home.jsx
+6. implement get project, projects and add user logic in backend in project.route.js, project.service.js, project.controller.js
+7. implement get users logic in backend in user.route.js, user.service.js, user.controller.js
+8. connect previous created APIs with frontend (API integration) in Home.jsx
+9. create src/screens/Project.jsx
+10. npm install react-icons
+11. npm install @fortawesome/fontawesome-free
+12. import "@fortawesome/fontawesome-free/css/all.min.css"; (in App.jsx)
+
+
+// Backend (Socket io setup for Real-Time Chat)
+
+1. cd backend
+2. npm i socket.io
+3. add following code in server.js :
+
+import http from 'http';
+import app from "./app.js";
+import { Server } from 'socket.io';
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+    }
+});
+
+io.on('connection', socket => {
+    console.log('socket connected')
+    socket.on('event', data => { /* … */ });
+    socket.on('disconnect', () => { /* … */ });
+});
+
+server.listen(3000);
+
+4. Check using postman (select Socket.IO) & write localhost:3000 and press connect
+5. add middleware for socket.io in server.js
+6. test middleware in postman using set token in authorization
+
+// Frontend (set up socket.io on client-side)
+
+1. cd frontend
+2. npm i socket.io-client
+3. create config/socket.js
+4. implement socket.js logic in Project.jsx
+5. create logic for sendMessage in socket.js & server.js (cd Backend)
+6. implement logic for send messages in Project.jsx
+7. create src/auth/UserAuth.jsx
+8. import UserAuth in routes/AppRoutes.jsx and wrap Home & Project in that
+9. add following code in vite.config.js for run you app in mobile :
+
+server: {
+    host: '0.0.0.0', // Allow access from any network
+    port: 5173,      // Optional: Ensure the correct port is used
+},
+
+// Backend (AI integration)
+
+1. cd backend
+2. go to https://ai.google.dev/ ----> Click on Get API key
+3. copy and paste api key in backend/.env
+4. npm i @google/generative-ai
+5. create services/ai.service.js
+6. copy and paste code from https://ai.google.dev/gemini-api/docs#node.js in ai.service.js
+7. create controllers/ai.controller.js
+8. create routes/ai.route.js
+9. implement @ai logic in server.js to chat with AI
+10. cd frontend
+11. npm i markdown-to-jsx
+12. npm i monaco-editor
+13. use MonacoEditor in Project.jsx (to get vs code theme)
+14. go to https://webcontainers.io/
+15. npm i @webcontainer/api
+16. create config/webContainer.js
+17. import webContainer.js in Project.jsx
+18. set following code in "vite.config.js"
+    headers: {
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin"
+    },
