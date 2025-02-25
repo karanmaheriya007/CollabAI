@@ -173,3 +173,12 @@ server: {
       "Cross-Origin-Embedder-Policy": "require-corp",
       "Cross-Origin-Opener-Policy": "same-origin"
     },
+
+# push code on git hub :
+1. Backend-sheryians\DevinAI> git init
+2. Backend-sheryians\DevinAI> git remote add origin https://github.com/karanmaheriya007/CollabAI.git
+3. Backend-sheryians\DevinAI> git add .
+4. Backend-sheryians\DevinAI> git commit -m "CollabAI Collge Project"
+5. Backend-sheryians\DevinAI> git branch (for check branch)
+6. Backend-sheryians\DevinAI> git checkout main (for switch branch like master to main branch)
+7. Backend-sheryians\DevinAI> git push origin main
