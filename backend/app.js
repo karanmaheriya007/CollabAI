@@ -26,6 +26,9 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+// Enable preflight requests for all routes
+app.options('*', cors()); // Add this line here
+
 // Morgan, which is a middleware for logging HTTP requests in Node.js applications, commonly used with Express.js.
 app.use(morgan('dev'));
 app.use(express.json());
