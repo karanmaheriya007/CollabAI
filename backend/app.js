@@ -11,7 +11,7 @@ connect();
 
 const app = express();
 //cors, which allows frontend apps (React, Vue, Angular, etc.) to communicate with your backend API.
-const allowedOrigins = process.env.FRONTEND_URL?.split(',');
+const allowedOrigins = process.env.FRONTEND_URL?.split(',')[0];
 
 app.use(cors({
     origin: (origin, callback) => {
