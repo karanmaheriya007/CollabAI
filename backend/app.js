@@ -25,6 +25,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 // Morgan, which is a middleware for logging HTTP requests in Node.js applications, commonly used with Express.js.
 app.use(morgan('dev'));
 app.use(express.json());
