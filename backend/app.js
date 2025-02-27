@@ -11,23 +11,25 @@ connect();
 
 const app = express();
 //cors, which allows frontend apps (React, Vue, Angular, etc.) to communicate with your backend API.
-const allowedOrigins = process.env.FRONTEND_URL?.split(',');
+// const allowedOrigins = process.env.FRONTEND_URL?.split(',');
 
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
+
+// app.use(cors({
+//     origin: (origin, callback) => {
+//         if (!origin || allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 // Enable preflight requests for all routes
-app.options('*', cors()); // Add this line here
+// app.options('*', cors()); // Add this line here
 
 // Morgan, which is a middleware for logging HTTP requests in Node.js applications, commonly used with Express.js.
 app.use(morgan('dev'));
