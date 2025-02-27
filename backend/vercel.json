@@ -21,12 +21,25 @@
                 "PUT",
                 "DELETE"
             ],
-            "headers": {
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization"
-            }
+            "headers": [
+                {
+                    "source": "/(.*)",
+                    "headers": [
+                        {
+                            "key": "Access-Control-Allow-Origin",
+                            "value": "https://collab-ai-project.vercel.app"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Methods",
+                            "value": "GET, POST, PUT, DELETE, OPTIONS"
+                        },
+                        {
+                            "key": "Access-Control-Allow-Headers",
+                            "value": "Content-Type, Authorization"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
