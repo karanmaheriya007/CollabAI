@@ -13,7 +13,11 @@ const app = express();
 //cors, which allows frontend apps (React, Vue, Angular, etc.) to communicate with your backend API.
 // const allowedOrigins = process.env.FRONTEND_URL?.split(',');
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://collab-ai-project.vercel.app', // Allow requests from your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+    credentials: true, // If you're using cookies for authentication
+}));
 
 // app.use(cors({
 //     origin: (origin, callback) => {
