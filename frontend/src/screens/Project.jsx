@@ -10,6 +10,7 @@ import Markdown from 'markdown-to-jsx';
 import MonacoEditor from '@monaco-editor/react';
 import CodeRunner from './CodeRunner';
 import Terminal from './Terminal';
+import { motion } from 'framer-motion';
 
 const Project = () => {
     const location = useLocation();
@@ -156,13 +157,13 @@ const Project = () => {
         try {
             const messageObject = JSON.parse(message);
             return (
-                <div className="overflow-auto custom-scrollbar rounded p-2 bg-gray-900 text-white font-mono mb-4">
+                <div className="overflow-auto custom-scrollbar rounded bg-gray-800 text-white mb-4">
                     <Markdown>{messageObject.text}</Markdown>
                 </div>
             );
         } catch (error) {
             return (
-                <div className="overflow-auto custom-scrollbar rounded p-2 bg-gray-900 text-white font-mono mb-4">
+                <div className="overflow-auto custom-scrollbar rounded bg-gray-800 text-white mb-4">
                     <p>Some issue in generating the result. Please ask again!</p>
                 </div>
             );
@@ -204,12 +205,49 @@ const Project = () => {
                 <div className="conversation-area flex flex-grow flex-col overflow-hidden">
                     <div ref={messageBox} className="message-box flex-grow bg-[url('')] bg-[#151424] bg-cover bg-center flex flex-col p-4 space-y-2 overflow-auto custom-scrollbar">
                         {messages.map((msg, index) => (
-                            <div key={index} className={`${msg.sender._id === user._id ? 'self-end bg-[#fff] w-[80%]' : msg.sender._id === 'ai' ? 'self-start bg-white w-full' : 'self-start bg-white w-[80%]'} break-words text-gray-800 px-4 pt-2 pb-3 rounded-lg shadow-md relative`}>
-                                <small className={`text-gray-500 block text-xs ${msg.sender._id === 'ai' ? 'pb-2' : ''}`}>{msg.sender.email}</small>
-                                {msg.sender._id === 'ai' ? WriteAiMessage(msg.message) : <p className="pb-3 text-sm">{msg.message}</p>}
-                                <span className="text-gray-400 text-[10px] absolute bottom-1 right-2">{msg.timestamp}</span>
-                                <div className={`absolute ${msg.sender._id === user._id ? '-right-2 top-0 w-5 h-5 bg-[#fff]' : '-left-2 top-0 w-5 h-5 bg-white'}`} style={{ clipPath: msg.sender._id === user._id ? 'polygon(100% 0, 0 0, 0 100%)' : 'polygon(100% 0, 0 0, 99% 100%)' }}></div>
-                            </div>
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                                className={`relative max-w-[80%] px-4 py-3 rounded-lg shadow-lg text-white ${msg.sender._id === user._id
+                                        ? "bg-gray-800 self-end"
+                                        : msg.sender._id === "ai"
+                                            ? "bg-gray-800 self-start w-full"
+                                            : "bg-gray-800 self-start"
+                                    }`}
+                            >
+                                {/* Sender Email */}
+                                <small className="text-gray-400 block text-xs">
+                                    {msg.sender.email}
+                                </small>
+
+                                {/* Message Content */}
+                                {msg.sender._id === "ai" ? (
+                                    WriteAiMessage(msg.message)
+                                ) : (
+                                    <p className="text-sm pb-3">{msg.message}</p>
+                                )}
+
+                                {/* Timestamp */}
+                                <span className="text-gray-400 text-[10px] absolute bottom-1 right-2">
+                                    {msg.timestamp}
+                                </span>
+
+                                {/* Tail */}
+                                <div
+                                    className={`tail absolute w-4 h-4 ${msg.sender._id === user._id
+                                            ? "-right-2 top-0 bg-gray-800"
+                                            : "-left-2 top-0 bg-gray-800"
+                                        } z-0`}
+                                    style={{
+                                        clipPath:
+                                            msg.sender._id === user._id
+                                                ? "polygon(100% 0, 0 0, 0 100%)"
+                                                : "polygon(100% 0, 0 0, 99% 100%)",
+                                    }}
+                                ></div>
+                            </motion.div>
                         ))}
                     </div>
                     <div className="inputField w-full flex bg-[#1e1e1e] py-2 border-t border-[#676767]">
@@ -356,7 +394,7 @@ const Project = () => {
                                 )}
                         </div>
                         {/* Terminal Section */}
-                        <Terminal fileTree={fileTree} currentFile={currentFile}/>
+                        <Terminal fileTree={fileTree} currentFile={currentFile} />
                     </div>
                 </div>
                 {/* Iframe section for live preview */}
