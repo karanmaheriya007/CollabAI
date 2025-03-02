@@ -1,8 +1,0 @@
-{
-    "rewrites": [
-      {
-        "source": "/:path*",
-        "destination": "https://collab-ai-peach.vercel.app/:path*"
-      }
-    ]
-  }

@@ -96,7 +96,7 @@ const Project = () => {
 
         receiveMessage('project-message', (data) => {
             try {
-                console.log('Raw message:', data);
+                // console.log('Raw message:', data);
                 let message;
                 try {
                     message = JSON.parse(data.message);
