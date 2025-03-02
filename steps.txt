@@ -180,5 +180,6 @@ server: {
 3. Backend-sheryians\DevinAI> git add .
 4. Backend-sheryians\DevinAI> git commit -m "CollabAI Collge Project"
 5. Backend-sheryians\DevinAI> git branch (for check branch)
-6. Backend-sheryians\DevinAI> git checkout main (for switch branch like master to main branch)
-7. Backend-sheryians\DevinAI> git push origin main
+6. Backend-sheryians\DevinAI> git checkout -b main (for create new main branch If It Doesn't Exist)
+7. Backend-sheryians\DevinAI> git checkout main (for switch branch like master to main branch)
+8. Backend-sheryians\DevinAI> git push origin main
