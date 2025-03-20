@@ -1,0 +1,12 @@
+.copilotKitMessages{
+    background-color: transparent !important;
+}
+
+/* .copilotKitMessage.copilotKitAssistantMessage {
+    background: #1F2937 !important;
+    color: white !important;
+} */
+
+.copilotKitResponseButton{
+    display: none;
+}

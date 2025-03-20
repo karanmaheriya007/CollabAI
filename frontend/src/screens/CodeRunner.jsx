@@ -5,33 +5,31 @@ const CodeRunner = ({ currentFile, fileTree, setIsPreviewOpen }) => {
     const [iframeCode, setIframeCode] = useState('');
 
     useEffect(() => {
-        if (currentFile && fileTree[currentFile]) {
-            const indexHtml = fileTree['index.html']?.file?.contents || '';
+        if (currentFile && fileTree[currentFile] && currentFile.endsWith('.html')) {
+            const htmlContent = fileTree[currentFile]?.file?.contents || '';
             const cssContent = fileTree['style.css']?.file?.contents || '';
             const jsContent = fileTree['script.js']?.file?.contents || '';
 
-            // Combine index.html, styles.css, and script.js into a single HTML document
+            // Embed CSS and JS into the selected HTML file
             const combinedHtml = `
                 <html>
                     <head>
                         <title>Live Preview</title>
-                        <style>${cssContent}</style> <!-- Embedding styles directly here -->
+                        <style>${cssContent}</style> <!-- Embed CSS -->
                     </head>
                     <body>
-                        ${indexHtml}
-                        <script>${jsContent}</script> <!-- Embedding script directly here -->
+                        ${htmlContent} <!-- Load the selected .html file -->
+                        <script>${jsContent}</script> <!-- Embed JS -->
                     </body>
                 </html>
             `;
 
-            // Inject combined HTML into iframe
             setIframeCode(combinedHtml);
         }
     }, [currentFile, fileTree]);
 
     return (
         <>
-            {/* Iframe section for live preview */}
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="bg-white w-[90vw] h-[90vh] relative p-2 rounded-md shadow-lg">
                     <button
@@ -41,11 +39,11 @@ const CodeRunner = ({ currentFile, fileTree, setIsPreviewOpen }) => {
                         <RxCross2 size={14} />
                     </button>
                     <iframe
-                        key={iframeCode} // Force re-render by changing the key
+                        key={iframeCode} // Force re-render on change
                         title="Live Preview"
                         srcDoc={iframeCode}
                         style={{ width: '100%', height: '100%', border: 'none' }}
-                        sandbox="allow-scripts"
+                        sandbox="allow-scripts allow-same-origin"
                     ></iframe>
                 </div>
             </div>

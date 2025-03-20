@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { VscSend } from 'react-icons/vsc';
 import { RxCross2 } from 'react-icons/rx';
 import { FaUser } from 'react-icons/fa6';
@@ -164,7 +164,7 @@ const Project = () => {
         } catch (error) {
             return (
                 <div className="overflow-auto custom-scrollbar rounded bg-gray-800 text-white mb-4">
-                    <p>Some issue in generating the result. Please ask again!</p>
+                    <p>Some issue in generating the result. Please ask again !</p>
                 </div>
             );
         }
@@ -211,10 +211,10 @@ const Project = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.3, ease: "easeOut" }}
                                 className={`relative max-w-[80%] px-4 py-3 rounded-lg shadow-lg text-white ${msg.sender._id === user._id
-                                        ? "bg-gray-800 self-end"
-                                        : msg.sender._id === "ai"
-                                            ? "bg-gray-800 self-start w-full"
-                                            : "bg-gray-800 self-start"
+                                    ? "bg-gray-800 self-end"
+                                    : msg.sender._id === "ai"
+                                        ? "bg-gray-800 self-start w-full"
+                                        : "bg-gray-800 self-start"
                                     }`}
                             >
                                 {/* Sender Email */}
@@ -237,8 +237,8 @@ const Project = () => {
                                 {/* Tail */}
                                 <div
                                     className={`tail absolute w-4 h-4 ${msg.sender._id === user._id
-                                            ? "-right-2 top-0 bg-gray-800"
-                                            : "-left-2 top-0 bg-gray-800"
+                                        ? "-right-2 top-0 bg-gray-800"
+                                        : "-left-2 top-0 bg-gray-800"
                                         } z-0`}
                                     style={{
                                         clipPath:
@@ -329,7 +329,8 @@ const Project = () => {
                     </div>
                     <div className="code-editor flex-grow flex h-full flex-col">
                         <div className="top justify-between w-full relative">
-                            <div className={`files flex border-b ${openFiles.length > 0 ? 'border-t' : ''} border-[#676767]`}>
+                            <div className={`files flex border-b ${openFiles.length > 0 ? 'border-t' : ''} border-[#676767] overflow-x-auto whitespace-nowrap`}>
+                                <div className="flex w-[82%] overflow-auto custom-scrollbar border-r border-[#676767]">
                                 {
                                     openFiles
                                         .filter((file) => fileTree[file]) // Filter files that exist in the fileTree
@@ -354,13 +355,21 @@ const Project = () => {
                                             </div>
                                         ))
                                 }
+                                </div>
                             </div>
-                            <button
-                                className="bg-[#424242] absolute right-1 top-[5px] text-white px-4 py-1 rounded hover:bg-[#606060] transition"
-                                onClick={() => setIsPreviewOpen(true)}
-                            >
-                                Preview
-                            </button>
+                            <div className="flex absolute right-[7px] gap-1 top-[5px]">
+                                <button
+                                    className="bg-[#424242] text-white px-4 py-1 rounded hover:bg-[#606060] transition"
+                                    onClick={() => setIsPreviewOpen(true)}
+                                >
+                                    Preview
+                                </button>
+                                <button
+                                    className="bg-[#424242] text-white px-4 py-1 rounded hover:bg-[#606060] transition"
+                                >
+                                    <Link target='_blank' to="/code-reviewer">Review</Link>
+                                </button>
+                            </div>
                         </div>
                         <div className="bottom flex flex-grow bg-[#1E1E1E] pt-3 overflow-hidden">
                             {
@@ -369,6 +378,7 @@ const Project = () => {
                                         height="100%" // Make it fill the available space
                                         language="javascript" // You can change this based on the file type
                                         value={fileTree[currentFile]?.file?.contents}
+                                        theme='vs-dark'
                                         onChange={(newValue) => {
                                             const updatedFileTree = {
                                                 ...fileTree,

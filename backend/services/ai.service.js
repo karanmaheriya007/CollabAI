@@ -63,7 +63,7 @@ const model = genAI.getGenerativeModel({
     - MOST IMPORTANT- Provide responses in proper JSON format with correct indentation.
     - MOST IMPORTANT- Avoid any unnecessary curly brackets or misplaced characters in the response.
     - MOST IMPORTANT- Ensure the file tree structure is correctly formatted and avoid extra wrapping of objects.
-    - MOST IMPORTANT- Return code as requested: HTML, CSS, JS files.
+    - MOST IMPORTANT- Return code as requested: HTML, CSS, JS files or add internal JS and CSS in HTML file if required.
     - MOST IMPORTANT- Always validate JSON before returning, and provide a clean, consistent response without extra or misplaced braces.
 
     MOST IMPORTANT : for creating webpage always return a three files in fileTree index.html , style.css , script.js
@@ -177,31 +177,19 @@ const model = genAI.getGenerativeModel({
     </example>
     <example>
     MOST IMPORTANT : always close three curly brackets in last for fileTree
-    MOST IMPORTANT : all three files index.html,style.css and script.js must include in fileTree
+    MOST IMPORTANT : all three files index.html,style.css and script.js must include in fileTree or you must add internal js and css if required
     MOST IMPORTANT : don't use file name like styles.css always use style.css
 
     user : Create a modern webpage with a hero section, button, and a message that appears on click, featuring smooth animations and responsive design.
     response : {
         "text" : "Here is a simple web project with an HTML file, a CSS file for styling, and a JavaScript file for interactivity. The HTML file includes a welcome message, a button, and a placeholder for a message. The CSS file styles the page with centered text and a blue button that changes color on hover. The JavaScript file adds an event listener to the button, which displays 'Hello, World!' when clicked.",
         "fileTree": {
-            "index.html": {
+            "Webpage.html": {
                 "file": {
-                    "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Attractive Web Page</title>\n    <link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <header class=\"hero\">\n        <div class=\"container\">\n            <h1>Welcome to My Stunning Web Page</h1>\n            <p>Discover the beauty of clean design, interactive elements, and smooth animations.</p>\n            <button id=\"clickButton\" class=\"btn-main\">Click Me</button>\n        </div>\n    </header>\n    <section id=\"messageSection\" class=\"message-container\">\n        <p id=\"message\" class=\"message-text\"></p>\n    </section>\n    <script src=\"script.js\"></script>\n</body>\n</html>"
-                }
-            },
-            "style.css": {
-                "file": {
-                    "contents": "/* Global Styles */\n* {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n}\n\nbody {\n    font-family: 'Poppins', sans-serif;\n    background-color: #f4f7fb;\n    color: #333;\n    height: 100vh;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n/* Hero Section */\n.hero {\n    background: linear-gradient(to right, #6a11cb, #2575fc);\n    padding: 50px 20px;\n    text-align: center;\n    border-radius: 10px;\n    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);\n    max-width: 90%;\n    width: 600px;\n    animation: fadeIn 1.5s ease-out;\n}\n\n.hero h1 {\n    font-size: 2.5rem;\n    color: white;\n    font-weight: 600;\n}\n\n.hero p {\n    font-size: 1.1rem;\n    color: #fff;\n    margin: 20px 0;\n}\n\n.btn-main {\n    background-color: #ff4081;\n    color: white;\n    padding: 15px 30px;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    font-size: 1.1rem;\n    transition: background-color 0.3s ease;\n}\n\n.btn-main:hover {\n    background-color: #d50057;\n}\n\n/* Message Section */\n.message-container {\n    margin-top: 30px;\n    text-align: center;\n    animation: fadeInUp 1.5s ease-out;\n}\n\n.message-text {\n    font-size: 1.2rem;\n    font-weight: 400;\n    color: #333;\n}\n\n/* Animations */\n@keyframes fadeIn {\n    0% {\n        opacity: 0;\n    }\n    100% {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeInUp {\n    0% {\n        opacity: 0;\n        transform: translateY(20px);\n    }\n    100% {\n        opacity: 1;\n        transform: translateY(0);\n    }\n}"
-                }
-            },
-            "script.js": {
-                "file": {
-                    "contents": "document.getElementById('clickButton').addEventListener('click', function() {\n    document.getElementById('message').innerText = 'Hello, World! You clicked the button!';\n    document.getElementById('messageSection').classList.add('active');\n});"
+                    "contents": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Attractive Web Page</title>\n<link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap\" rel=\"stylesheet\">\n<style>\n/* Global Styles */\n* {\nmargin: 0;\npadding: 0;\nbox-sizing: border-box;\n}\n\nbody {\nfont-family: 'Poppins', sans-serif;\nbackground-color: #f4f7fb;\ncolor: #333;\nheight: 100vh;\ndisplay: flex;\njustify-content: center;\nalign-items: center;\n}\n\n/* Hero Section */\n.hero {\nbackground: linear-gradient(to right, #6a11cb, #2575fc);\npadding: 50px 20px;\ntext-align: center;\nborder-radius: 10px;\nbox-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);\nmax-width: 90%;\nwidth: 600px;\nanimation: fadeIn 1.5s ease-out;\n}\n\n.hero h1 {\nfont-size: 2.5rem;\ncolor: white;\nfont-weight: 600;\n}\n\n.hero p {\nfont-size: 1.1rem;\ncolor: #fff;\nmargin: 20px 0;\n}\n\n.btn-main {\nbackground-color: #ff4081;\ncolor: white;\npadding: 15px 30px;\nborder: none;\nborder-radius: 5px;\ncursor: pointer;\nfont-size: 1.1rem;\ntransition: background-color 0.3s ease;\n}\n\n.btn-main:hover {\nbackground-color: #d50057;\n}\n\n/* Message Section */\n.message-container {\nmargin-top: 30px;\ntext-align: center;\nanimation: fadeInUp 1.5s ease-out;\n}\n\n.message-text {\nfont-size: 1.2rem;\nfont-weight: 400;\ncolor: #333;\n}\n\n/* Animations */\n@keyframes fadeIn {\n0% {\nopacity: 0;\n}\n100% {\nopacity: 1;\n}\n}\n\n@keyframes fadeInUp {\n0% {\nopacity: 0;\ntransform: translateY(20px);\n}\n100% {\nopacity: 1;\ntransform: translateY(0);\n}\n}\n</style>\n</head>\n<body>\n<header class=\"hero\">\n<div class=\"container\">\n<h1>Welcome to My Stunning Web Page</h1>\n<p>Discover the beauty of clean design, interactive elements, and smooth animations.</p>\n<button id=\"clickButton\" class=\"btn-main\">Click Me</button>\n</div>\n</header>\n<section id=\"messageSection\" class=\"message-container\">\n<p id=\"message\" class=\"message-text\"></p>\n</section>\n<script>\ndocument.getElementById('clickButton').addEventListener('click', function() {\ndocument.getElementById('message').innerText = 'Hello, World! You clicked the button!';\ndocument.getElementById('messageSection').classList.add('active');\n});\n</script>\n</body>\n</html>"
                 }
             }
         }
-
-
     }
     </example>
 
@@ -220,29 +208,30 @@ const model = genAI.getGenerativeModel({
     </example>
 
     <example>
+    user : create Tooltip button
+    response :{
+        "text": "Here is the code for a tooltip button that displays a message when hovered over. The button has a simple design with a border, padding, and a hover effect. The tooltip message appears below the button and fades in with a smooth animation.",
+        "fileTree": {
+            "index.html": {
+                "file": {
+                    "contents": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n    <link href=\"https://getbootstrap.com/docs/5.3/assets/css/docs.css\" rel=\"stylesheet\">\n    <title>Bootstrap Example</title>\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\"></script>\n  </head>\n  <body class=\"p-3 m-0 border-0 bd-example m-0 border-0 tooltip-demo\">\n    <button type=\"button\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-custom-class=\"custom-tooltip\" data-bs-title=\"This top tooltip is themed via CSS variables.\">\n      Custom tooltip\n    </button>\n  </body>\n</html>"
+                }
+            }
+        }
+    }
+    </example>
+
+    <example>
     user : give beautiful to do list in which i can add and delete task and that task store on frontend in the form of table and store in localhost so it should become permanant not temprory
     response : {
     "text": "This to-do list application uses local storage to persist data on the user's browser.  It doesn't use a backend server or database, so data is only stored locally and will be lost if the user clears their browser's data.  For persistent storage across devices, a backend would be necessary.",
     "fileTree": {
-        "index.html": {
+        "Todolist.html": {
             "file": {
-                "contents": "<!DOCTYPE html>\n<html>\n<head>\n<title>To-Do List</title>\n<link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <h1>To-Do List</h1>\n  <input type=\"text\" id=\"newTask\" placeholder=\"Add a new task\">\n  <button onclick=\"addTask()\">Add Task</button>\n\n  <table>\n    <thead>\n      <tr>\n        <th>Task</th>\n        <th>Actions</th>\n      </tr>\n    </thead>\n    <tbody id=\"taskList\"></tbody>\n  </table>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>"
-            }
-        },
-        "style.css": {
-            "file": {
-                "contents": "table {\n  width: 50%;\n  border-collapse: collapse;\n  margin: 20px auto;\n}\nth, td {\n  border: 1px solid #ddd;\n  padding: 8px;\n  text-align: left;\n}\nth {\n  background-color: #f2f2f2;\n}\nbutton {\n  background-color: #4CAF50;\n  border: none;\n  color: white;\n  padding: 8px 12px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 14px;\n  cursor: pointer;\n  border-radius: 5px;\n}"
-            }
-        },
-        "script.js": {
-            "file": {
-                "contents": "function addTask() {\n  const taskInput = document.getElementById('newTask');\n  const taskText = taskInput.value.trim();\n\n  if (taskText === '') return;\n\n  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];\n  tasks.push(taskText);\n  localStorage.setItem('tasks', JSON.stringify(tasks));\n  renderTasks();\n  taskInput.value = '';\n}\n\nfunction deleteTask(index) {\n  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];\n  tasks.splice(index, 1);\n  localStorage.setItem('tasks', JSON.stringify(tasks));\n  renderTasks();\n}\n\nfunction renderTasks() {\n  const taskList = document.getElementById('taskList');\n  taskList.innerHTML = '';\n\n  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];\n\n  tasks.forEach((task, index) => {\n    const row = taskList.insertRow();\n    const taskCell = row.insertCell();\n    const actionCell = row.insertCell();\n\n    taskCell.textContent = task;\n    const deleteButton = document.createElement('button');\n    deleteButton.textContent = 'Delete';\n    deleteButton.onclick = () => deleteTask(index);\n    actionCell.appendChild(deleteButton);\n  });\n}\n\nrenderTasks();"
+                "contents": "<!DOCTYPE html>\n<html>\n<head>\n<title>To-Do List</title>\n<style>\ntable {\n  width: 50%;\n  border-collapse: collapse;\n  margin: 20px auto;\n}\nth, td {\n  border: 1px solid #ddd;\n  padding: 8px;\n  text-align: left;\n}\nth {\n  background-color: #f2f2f2;\n}\nbutton {\n  background-color: #4CAF50;\n  border: none;\n  color: white;\n  padding: 8px 12px;\n  text-align: center;\n  text-decoration: none;\n  display: inline-block;\n  font-size: 14px;\n  cursor: pointer;\n  border-radius: 5px;\n}\n</style>\n</head>\n<body>\n  <h1>To-Do List</h1>\n  <input type=\"text\" id=\"newTask\" placeholder=\"Add a new task\">\n  <button onclick=\"addTask()\">Add Task</button>\n\n  <table>\n    <thead>\n      <tr>\n        <th>Task</th>\n        <th>Actions</th>\n      </tr>\n    </thead>\n    <tbody id=\"taskList\"></tbody>\n  </table>\n\n  <script>\nfunction addTask() {\n  const taskInput = document.getElementById('newTask');\n  const taskText = taskInput.value.trim();\n\n  if (taskText === '') return;\n\n  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];\n  tasks.push(taskText);\n  localStorage.setItem('tasks', JSON.stringify(tasks));\n  renderTasks();\n  taskInput.value = '';\n}\n\nfunction deleteTask(index) {\n  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];\n  tasks.splice(index, 1);\n  localStorage.setItem('tasks', JSON.stringify(tasks));\n  renderTasks();\n}\n\nfunction renderTasks() {\n  const taskList = document.getElementById('taskList');\n  taskList.innerHTML = '';\n\n  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];\n\n  tasks.forEach((task, index) => {\n    const row = taskList.insertRow();\n    const taskCell = row.insertCell();\n    const actionCell = row.insertCell();\n\n    taskCell.textContent = task;\n    const deleteButton = document.createElement('button');\n    deleteButton.textContent = 'Delete';\n    deleteButton.onclick = () => deleteTask(index);\n    actionCell.appendChild(deleteButton);\n  });\n}\n\nrenderTasks();\n  </script>\n</body>\n</html>"
             }
         }
     }
-
-
-
 }
     MOST IMPORTANT : always close three curly brackets in last for fileTree
     </example>

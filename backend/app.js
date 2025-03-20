@@ -36,9 +36,10 @@ const app = express();
 // app.options('*', cors()); // Add this line here
 
 app.use(cors({
-    origin: ['https://collab-ai-project.vercel.app'],
+    origin: ['https://collab-ai-project.vercel.app','http://localhost:5173'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization','X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
+    credentials: true
 }));
 
 // Morgan, which is a middleware for logging HTTP requests in Node.js applications, commonly used with Express.js.
