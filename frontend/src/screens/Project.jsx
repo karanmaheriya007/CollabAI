@@ -251,7 +251,9 @@ const Project = () => {
                         ))}
                     </div>
                     <div className="inputField w-full flex bg-[#1e1e1e] py-2 border-t border-[#676767]">
-                        <input value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && message.trim()) send(); }} className='caret-white text-white bg-[#1e1e1e] px-4 w-full border-none outline-none text-sm' type="text" placeholder='Type a message' />
+                        <input value={message} onChange={(e) => setMessage(e.target.value)}
+                        //  onKeyDown={(e) => { if (e.key === 'Enter' && message.trim()) send(); }}
+                          className='caret-white text-white bg-[#1e1e1e] px-4 w-full border-none outline-none text-sm text-wrap' type="text" placeholder='Type a message' />
                         <button onClick={send} disabled={!message.trim()} className='mr-1 p-2 bg-[#424242] hover:bg-[#4f4f4f] rounded-md text-white cursor-pointer'><VscSend size={20} /></button>
                     </div>
                 </div>

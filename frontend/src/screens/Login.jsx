@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../config/axios";
 import { UserContext } from "../context/user.context";
+import AlertMessage from "./AlertMessage";
 
 const Login = () => {
 
@@ -9,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const { setUser } = useContext(UserContext);
+    const [alert, setAlert] = useState({ severity: '', message: '' });
 
     const navigate = useNavigate();
 
@@ -22,7 +24,15 @@ const Login = () => {
                 navigate('/');
             })
             .catch((err) => {
-                console.log(err);
+                const errorMessage = err?.response?.data?.message;
+
+                // Clear alert first
+                setAlert({ severity: '', message: '' });
+
+                // Delay to trigger rerender
+                setTimeout(() => {
+                    setAlert({ severity: 'error', message: errorMessage });
+                }, 50);
             })
     }
 
@@ -71,6 +81,8 @@ const Login = () => {
                     </Link>
                 </p>
             </div>
+            {/* Alert Message */}
+            <AlertMessage severity={alert.severity} message={alert.message} />
         </div>
     );
 };

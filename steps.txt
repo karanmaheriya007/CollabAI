@@ -33,7 +33,7 @@ for use ES6 module syntax (import express from 'express';)
 3. npm i
 4. go to https://v3.tailwindcss.com/docs/guides/vite
 5. npm install -D tailwindcss@3 postcss autoprefixer
-6. npx tailwindcss init -p
+6. npx tailwindcss init -p (or create tailwind.config.js and postcss.config.js)
 7. replace code of tailwind.config.js with following code :
 
 /** @type {import('tailwindcss').Config} */
@@ -101,7 +101,6 @@ export default {
 10. npm install react-icons
 11. npm install @fortawesome/fontawesome-free
 12. import "@fortawesome/fontawesome-free/css/all.min.css"; (in App.jsx)
-
 
 // Backend (Socket io setup for Real-Time Chat)
 

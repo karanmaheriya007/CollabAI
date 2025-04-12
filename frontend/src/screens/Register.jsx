@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../config/axios";
 import { useUser } from "../context/user.context";
+import AlertMessage from './AlertMessage';
 
 const Register = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [alert, setAlert] = useState({ severity: '', message: '' });
 
     const { setUser } = useUser();
 
@@ -23,7 +25,15 @@ const Register = () => {
 
             })
             .catch((err) => {
-                console.log(err);
+                const errorMessage = err?.response?.data?.message;
+
+                // Clear alert first
+                setAlert({ severity: '', message: '' });
+
+                // Delay to trigger rerender
+                setTimeout(() => {
+                    setAlert({ severity: 'error', message: errorMessage });
+                }, 50);
             })
     }
 
@@ -72,6 +82,8 @@ const Register = () => {
                     </Link>
                 </p>
             </div>
+            {/* Alert Message */}
+            <AlertMessage severity={alert.severity} message={alert.message} />
         </div>
     );
 };
