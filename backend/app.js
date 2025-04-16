@@ -10,35 +10,15 @@ import cors from 'cors';
 connect();
 
 const app = express();
-// //cors, which allows frontend apps (React, Vue, Angular, etc.) to communicate with your backend API.
-// const allowedOrigins = process.env.FRONTEND_URL?.split(',');
-
-// // app.use(cors({
-// //     origin: 'https://collab-ai-project.vercel.app', // Allow requests from your frontend
-// //     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
-// //     credentials: true, // If you're using cookies for authentication
-// // }));
 
 // app.use(cors({
-//     origin: (origin, callback) => {
-//         if (!origin || allowedOrigins.includes(origin)) {
-//             callback(null, true);
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-//     credentials: true,
+//     origin: ['https://collab-ai-project.vercel.app','http://localhost:5173'],
 //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
+//     allowedHeaders: ['Content-Type', 'Authorization','X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
+//     credentials: true
 // }));
-
-// Enable preflight requests for all routes
-// app.options('*', cors()); // Add this line here
-
 app.use(cors({
-    origin: ['https://collab-ai-project.vercel.app','http://localhost:5173'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization','X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }));
 
