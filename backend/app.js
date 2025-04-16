@@ -17,8 +17,20 @@ const app = express();
 //     allowedHeaders: ['Content-Type', 'Authorization','X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
 //     credentials: true
 // }));
+
+const allowedOrigins = [
+    'https://collab-ai-project.vercel.app',
+    'http://localhost:5173'
+];
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
